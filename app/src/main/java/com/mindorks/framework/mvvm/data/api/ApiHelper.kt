@@ -1,7 +1,9 @@
 package com.mindorks.framework.mvvm.data.api
 
-class ApiHelper(private val apiService: ApiService) {
+import javax.inject.Inject
 
-    fun getUsers() = apiService.getUsers()
+class ApiHelper @Inject constructor(private val apiService: ApiService) {
+
+    fun getUsers() = apiService.loadList()
 
 }

@@ -3,31 +3,33 @@ package com.mindorks.framework.mvvm.ui.main.view
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mindorks.framework.mvvm.R
-import com.mindorks.framework.mvvm.data.api.ApiHelper
-import com.mindorks.framework.mvvm.data.api.ApiServiceImpl
-import com.mindorks.framework.mvvm.data.model.User
+import com.mindorks.framework.mvvm.data.model.EmployeeModel
 import com.mindorks.framework.mvvm.ui.base.ViewModelFactory
 import com.mindorks.framework.mvvm.ui.main.adapter.MainAdapter
 import com.mindorks.framework.mvvm.ui.main.viewmodel.MainViewModel
 import com.mindorks.framework.mvvm.utils.Status
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val mainViewModel: MainViewModel by viewModels(factoryProducer = { viewModelFactory })
     private lateinit var adapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupUI()
-        setupViewModel()
         setupObserver()
     }
 
@@ -64,15 +66,8 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun renderList(users: List<User>) {
+    private fun renderList(users: List<EmployeeModel>) {
         adapter.addData(users)
         adapter.notifyDataSetChanged()
-    }
-
-    private fun setupViewModel() {
-        mainViewModel = ViewModelProviders.of(
-            this,
-            ViewModelFactory(ApiHelper(ApiServiceImpl()))
-        ).get(MainViewModel::class.java)
     }
 }

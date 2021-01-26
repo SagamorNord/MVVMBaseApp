@@ -3,7 +3,7 @@ package com.mindorks.framework.mvvm.ui.main.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mindorks.framework.mvvm.data.model.User
+import com.mindorks.framework.mvvm.data.model.EmployeeModel
 import com.mindorks.framework.mvvm.data.repository.MainRepository
 import com.mindorks.framework.mvvm.utils.Resource
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
-    private val users = MutableLiveData<Resource<List<User>>>()
+    private val users = MutableLiveData<Resource<List<EmployeeModel>>>()
     private val compositeDisposable = CompositeDisposable()
 
     init {
@@ -25,9 +25,10 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
             mainRepository.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result.employees }
                 .subscribe({ userList ->
                     users.postValue(Resource.success(userList))
-                }, { throwable ->
+                }, {
                     users.postValue(Resource.error("Something Went Wrong", null))
                 })
         )
@@ -38,7 +39,7 @@ class MainViewModel(private val mainRepository: MainRepository) : ViewModel() {
         compositeDisposable.dispose()
     }
 
-    fun getUsers(): LiveData<Resource<List<User>>> {
+    fun getUsers(): LiveData<Resource<List<EmployeeModel>>> {
         return users
     }
 

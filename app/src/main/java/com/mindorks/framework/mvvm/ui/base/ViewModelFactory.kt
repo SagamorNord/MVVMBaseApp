@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.mindorks.framework.mvvm.data.api.ApiHelper
 import com.mindorks.framework.mvvm.data.repository.MainRepository
 import com.mindorks.framework.mvvm.ui.main.viewmodel.MainViewModel
+import javax.inject.Inject
 
-class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
+class ViewModelFactory @Inject constructor(private val apiHelper: ApiHelper) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
