@@ -11,5 +11,5 @@ import dagger.android.ContributesAndroidInjector
 interface ApiHelperModule {
 
     @ContributesAndroidInjector
-    fun provideContext(): ApiHelper?
+    fun provideHelper(): ApiHelper?
 }

@@ -1,6 +1,7 @@
 package com.mindorks.framework.mvvm.di.module
 
-import com.mindorks.framework.mvvm.ui.main.view.MainActivity
+import com.mindorks.framework.mvvm.ui.listing.view.EmployeeListActivity
+import com.mindorks.framework.mvvm.ui.main.MainListActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -11,6 +12,9 @@ import dagger.android.ContributesAndroidInjector
 interface ActivityBindingModule {
 
     @ContributesAndroidInjector
-    fun bindItemDetailActivity(): MainActivity?
+    fun bindItemDetailActivity(): EmployeeListActivity?
+
+    @ContributesAndroidInjector
+    fun bindMainListActivity(): MainListActivity?
 
 }

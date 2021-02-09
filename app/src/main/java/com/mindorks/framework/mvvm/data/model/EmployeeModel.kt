@@ -1,7 +1,7 @@
 package com.mindorks.framework.mvvm.data.model
 
 import com.google.gson.annotations.SerializedName
-import com.sagamore.testapplication.service.data.SpecialtyModel
+import com.mindorks.framework.mvvm.data.db.model.SpecialtyModel
 import java.io.Serializable
 
 /**

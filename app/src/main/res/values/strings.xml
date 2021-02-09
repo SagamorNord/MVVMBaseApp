@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">MVVM-Architecture-Android-Beginners</string>
+    <string name="app_name">ColleaguesApp</string>
+    <string name="title_main">Специальности</string>
+    <string name="title_employee">Касатики</string>
 </resources>
